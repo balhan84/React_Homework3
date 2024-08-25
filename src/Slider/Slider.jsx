@@ -1,38 +1,56 @@
 import { useState } from "react";
 import styles from "./Slider.module.sass";
 
-function Slider({ slides }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+import { Component } from "react";
 
-  const nextSlide = () => {
-    setCurrentSlide((prevSlide) =>
-      prevSlide === slides.length - 1 ? 0 : prevSlide + 1
-    );
-  };
-  const prevSlide = () => {
-    setCurrentSlide((prevSlide) =>
-      prevSlide === 0 ? slides.length - 1 : prevSlide - 1
-    );
+class Slider extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      currentSlide: 0,
+    };
+  }
+  nextSlide = () => {
+    this.setState((prevState) => ({
+      currentSlide:
+        prevState.currentSlide === this.props.slides.length - 1
+          ? 0
+          : prevState.currentSlide + 1,
+    }));
   };
 
-  return (
-    <>
-      <div className={styles.sliderWrapper}>
-        <h1 className={styles.sliderTitle}>{slides[currentSlide].title}</h1>
-        <img
-          className={styles.sliderImg}
-          src={slides[currentSlide].src}
-          alt={slides[currentSlide].title}
-        />
-        <button className={styles.prevBtn} onClick={prevSlide}>
-          {"<"}
-        </button>
-        <button className={styles.nextBtn} onClick={nextSlide}>
-          {">"}
-        </button>
-      </div>
-    </>
-  );
+  prevSlide = () => {
+    this.setState((prevState) => ({
+      currentSlide:
+        prevState.currentSlide === 0
+          ? this.props.slides.length - 1
+          : prevState.currentSlide - 1,
+    }));
+  };
+
+  render() {
+    const { slides } = this.props;
+    const { currentSlide, error } = this.state;
+    return (
+      <>
+        <div>{error && <div>ERROR</div>}</div>
+        <div className={styles.sliderWrapper}>
+          <h1 className={styles.sliderTitle}>{slides[currentSlide].title}</h1>
+          <img
+            className={styles.sliderImg}
+            src={slides[currentSlide].src}
+            alt={slides[currentSlide].title}
+          />
+          <button className={styles.prevBtn} onClick={this.prevSlide}>
+            {"<"}
+          </button>
+          <button className={styles.nextBtn} onClick={this.nextSlide}>
+            {">"}
+          </button>
+        </div>
+      </>
+    );
+  }
 }
-
 export default Slider;

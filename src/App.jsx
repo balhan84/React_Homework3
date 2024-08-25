@@ -4,19 +4,19 @@ function App() {
   const slides = [
     {
       title: "This cat is cute",
-      src: "../public/catCute.jpg",
+      src: "../catCute.jpg",
     },
     {
       title: "This cat is red",
-      src: "../public/catRed.jpg",
+      src: "../catRed.jpg",
     },
     {
       title: "These cats are small ",
-      src: "../public/smallCats.jpg",
+      src: "../smallCats.jpg",
     },
     {
       title: "This cat rests",
-      src: "../public/restCat.jpg",
+      src: "../restCat.jpg",
     },
   ];
   return (
